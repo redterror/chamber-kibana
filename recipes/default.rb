@@ -88,6 +88,10 @@ ark 'kibana' do
   end
 end
 
+# Remove the expanded config directory so we can link
+#
+
+
 # Create ES config file
 #
 template 'kibana.yml' do
@@ -98,6 +102,15 @@ template 'kibana.yml' do
   mode 0755
 
   notifies :restart, 'service[kibana]' unless node['kibana']['skip_restart']
+end
+
+file "#{node['kibana']['dir']}/kibana/config/kibana.yml" do
+  action :delete
+  not_if { ::File.symlink?("#{node['kibana']['dir']}/kibana/config/kibana.yml") }
+end
+
+link "#{node['kibana']['dir']}/kibana/config/kibana.yml" do
+  to "#{node['kibana']['path']['conf']}/kibana.yml"
 end
 
 # Fix: Workaround for hardcoded 512m memory requirement.

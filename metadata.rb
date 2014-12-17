@@ -4,7 +4,7 @@ maintainer_email 'roman.chukh@gmail.com'
 license          'Apache 2.0'
 description      'Set of recipes for installing Kibana 4'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.1.3'
+version          '0.2.0'
 
 supports 'centos'
 supports 'debian'
@@ -23,9 +23,10 @@ EOH
 depends 'chef-sugar', '~> 2.4'
 depends 'line', '~> 0.5'
 depends 'ark', '~> 0.9'
-depends 'java', '~> 1.28'
+depends 'apt', '~> 2.6.0'
+depends 'java', '~> 1.29'
 
 # Optional dependencies
 # FIX: 'depends' because of https://github.com/acrmp/foodcritic/issues/159
-depends 'elasticsearch', '~> 0.3'
+depends 'elasticsearch', '~> 0.3.10'
 suggests 'logstash', '~> 0.9.2'
